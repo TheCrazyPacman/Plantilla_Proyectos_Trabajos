@@ -1,0 +1,20 @@
+.inicio-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-card {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn-logout {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
