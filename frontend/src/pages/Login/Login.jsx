@@ -5,6 +5,7 @@ import api from '../../api/api'; // Ajusta la ruta según tu carpeta
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from 'react-toastify';
 import './Login.css';
+import logoEmpresa from '../../assets/logo-back.png'; 
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -75,6 +76,9 @@ const Login = () => {
   return (
     <div className="login-container">
       <form onSubmit={handleLogin} className="login-card">
+        <div className="logo-container">
+          <img src={logoEmpresa} alt="Logo Empresa" className="login-logo" />
+        </div>
         <input 
           type="text" 
           name="full_name_verification" // Un nombre que engañe al bot
@@ -85,7 +89,7 @@ const Login = () => {
           onChange={(e) => setHoneypot(e.target.value)} 
         />
         
-        <h3>Iniciar Sesión</h3>
+        <h3 className="login-title">Iniciar Sesión</h3>
         
         <input 
           type="text" 

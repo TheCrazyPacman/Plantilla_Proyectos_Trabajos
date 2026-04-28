@@ -44,3 +44,23 @@
     display: flex;
     justify-content: center;
 }
+.login-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.login-logo {
+    max-width: 150px; /* Ajusta el tamaño según tu logo */
+    height: auto;
+    object-fit: contain;
+}
+.login-card {
+    display: flex;
+    flex-direction: column;
+}
