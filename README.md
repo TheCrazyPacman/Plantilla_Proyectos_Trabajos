@@ -21,7 +21,7 @@ npm install
 Para el FrontEnd se instaló lo siguiente: 
 ========================================
 npm create vite@latest . -- --template react
-npm install axios react-router-dom @marsidev/react-turnstile react-toastify
+npm install axios react-router-dom react-google-recaptcha react-toastify
 
 Y Para ejecutarl el FrontEnd lanzamos lo siguiente: 
 =====================================================
@@ -49,7 +49,7 @@ BACKEND:
 -Nodemailer: Motor para el envío de correos electrónicos (notificaciones, recuperaciones, etc.).
 -Express-Rate-Limit: Protección básica contra ataques de fuerza bruta, limitando cuántas peticiones puede hacer una misma IP en un tiempo determinado.
 
--Helmet (Opcional): Ayuda a proteger la app configurando varios encabezados HTTP de seguridad, ocultando que usamos Express para evitar ataques dirigidos.
+-Helmet (Opcional): Ayuda a proteger la app configurando varios encabezados HTTP de seguridad, ocultando que usamos Express para evitar ataques dirigidos.(cloudflare)
 
 FRONTEND:
 =========
@@ -59,7 +59,7 @@ FRONTEND:
 
 -React Router Dom: Gestiona la navegación de la app (cambio de páginas) sin que el navegador tenga que recargar toda la web.
 
--@marsidev/react-turnstile: Integración oficial para el captcha de Cloudflare. Bloquea bots en el formulario de login.
+-react-google-recaptcha: Integración oficial para el captcha de google v2 . Bloquea bots en el formulario de login.
 
 -React Toastify: Sistema de notificaciones elegante ("toasts"). Avisa visualmente si el login fue exitoso o si hubo un error.
 
