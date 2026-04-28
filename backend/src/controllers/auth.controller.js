@@ -1,10 +1,11 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 // const { getConnection, mssql } = require('../config/db'); // Descomenta cuando uses la BD
 
 const login = async (req, res = response) => {
-    const { usuario, password } = req.body;
+    const { usuario, password, tokenSecurity } = req.body;
 
     try {
         // 1. Aquí buscarías al usuario en MS SQL Server
@@ -13,6 +14,17 @@ const login = async (req, res = response) => {
         
         // Simulación de usuario para la plantilla
         const user = { id: 1, usuario: 'admin123', password: '123' }; 
+
+        const response = await axios.post(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.COPIA_CLASE_SECRETA}&response=${tokenSecurity}`
+        );
+
+        if (!response.data.success) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Captcha no válido'
+            });
+        }
 
         if ( usuario !== user.usuario || password !== user.password ) {
             return res.status(400).json({

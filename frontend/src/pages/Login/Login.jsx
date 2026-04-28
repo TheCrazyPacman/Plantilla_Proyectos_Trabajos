@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import api from '../../api/api'; // Ajusta la ruta según tu carpeta
-import { Turnstile } from '@marsidev/react-turnstile';
+//import { Turnstile } from '@marsidev/react-turnstile';
+import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from 'react-toastify';
 import './Login.css';
 
@@ -9,8 +10,10 @@ const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [password, setPass] = useState('');
   const [honeypot, setHoneypot] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState(null);
-  const turnstileRef = useRef(null);
+  //const [turnstileToken, setTurnstileToken] = useState(null);
+  //const turnstileRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
   const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
@@ -27,12 +30,25 @@ const Login = () => {
       return;
     }*/
 
+    if (!captchaToken) {
+      alert('Por favor, completa el captcha.');
+      return;
+    }
+    
+
     try {
       // Enviamos "usuario" para que coincida con el backend
+      /*
       const res = await api.post('/auth/login', { 
         usuario, 
         password, 
         tokenSecurity: turnstileToken 
+      });*/
+
+      const res = await api.post('/auth/login', { 
+        usuario, 
+        password, 
+        tokenSecurity: captchaToken 
       });
 
       if (res.data.ok) { 
@@ -43,10 +59,15 @@ const Login = () => {
     } catch (error) {
       const errorMsg = error.response?.data?.msg || 'Credenciales incorrectas';
       toast.error(errorMsg);
-
+      /*
       // Resetear Turnstile y contraseña
       setTurnstileToken(null); 
       if (turnstileRef.current) turnstileRef.current.reset();
+      */
+      setCaptchaToken(null);
+        if (recaptchaRef.current) {
+          recaptchaRef.current.reset(); 
+      }
       setPass('');
     }
   };
@@ -83,16 +104,25 @@ const Login = () => {
           onChange={(e) => setPass(e.target.value)} 
           required
         />
-
+        {/*
         <div className="turnstile-container">
           <Turnstile 
             ref={turnstileRef}
             siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} 
             onSuccess={(token) => setTurnstileToken(token)} 
           />
+        </div>*/}
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '15px 0' }}>
+          <ReCAPTCHA
+            ref={recaptchaRef} // Conectamos la Ref
+            sitekey={import.meta.env.VITE_COPIA_CLAVE_SITIO} 
+            onChange={(token) => setCaptchaToken(token)}
+            onExpired={() => setCaptchaToken(null)} // Si expira, deshabilitamos el botón
+          />
         </div>
 
-        <button type="submit" className="btn-login" disabled={!turnstileToken}>
+        {/*<button type="submit" className="btn-login" disabled={!turnstileToken}>*/}
+        <button type="submit" className="btn-login" disabled={!captchaToken}>
           Entrar
         </button>
       </form>

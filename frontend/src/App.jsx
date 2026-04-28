@@ -4,7 +4,8 @@ import './App.css';
 // Importaciones ajustadas a tu estructura de carpetas
 import Login from './pages/Login/Login';
 import Inicio from './pages/Inicio/Inicio';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
+import ProtectedRoute from './componentes/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
